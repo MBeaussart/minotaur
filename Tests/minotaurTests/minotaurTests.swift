@@ -27,11 +27,27 @@ func resultsOf (goal: Goal, variables: [Variable]) -> [[Variable: Wrapper]] {
             result.append (subresult)
         }
     }
+
     return result
 }
 
 class minotaurTests: XCTestCase {
+    func testMartin()
+    {
 
+      let from = Variable(named : "from")
+      let to = Variable (named : "to")
+      let chemin = Variable (named : "chemin")
+      print("\n\n\t Solutions : \n")
+      var i : Int = -1
+        for solution in (solve (path(from: from, to: to, through: chemin) && battery(through : chemin, level : toNat(7))))
+        {
+          print("\t Path form : \(solution[from]), to : \(solution[to]), through : \(solution[chemin])")
+          i += 1
+        } 
+        print("\t    Number paths =  \(i)\n\n")
+
+    }
     func testDoors() {
         let from = Variable (named: "from")
         let to   = Variable (named: "to")
@@ -85,6 +101,7 @@ class minotaurTests: XCTestCase {
 
     static var allTests : [(String, (minotaurTests) -> () throws -> Void)] {
         return [
+            ("testMartin", testMartin),
             ("testDoors", testDoors),
             ("testEntrance", testEntrance),
             ("testExit", testExit),
